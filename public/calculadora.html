@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <link rel="shortcut icon" href="https://voyb.com.br/wp-content/uploads/2022/07/Logo-com-gradient-paleta-de-cores.png">
+  <link rel="apple-touch-icon" sizes="57x57"
+    href="https://voyb.com.br/wp-content/uploads/2022/07/Logo-com-gradient-paleta-de-cores.png">
+  <meta http-equiv="refresh" content="55555" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VOYB Recupera</title>
+
+  <script defer src="./assets/js/bundle.js"></script>
+
+</head>
+
+<body>
+  <div class="container">
+    <form class="formulario" id="calculadora-tributaria" method="POST" GET="result.html">
+
+      <img id="logo" src="https://voyb.com.br/wp-content/uploads/2022/03/Logo-sem-fundo.png" alt="logo da voyb" />
+
+      <h1 class="t1">Veja se sua empresa pode recuperar impostos</h1>
+
+      <div class="form-group">
+        <label class="nomeempresa" autofocus>Qual o nome da sua empresa?</label>
+        <input id="nomeEmpresa" name="empresa" type="text" placeholder="Nome da sua empresa" required/>
+      </div>
+
+      <div class="form-group">
+        <label class="nomeempresa">CNPJ da sua empresa</label>
+        <input id="cnpj" name="cnpj" type="text" placeholder="00.000.000/0000-00" required/>
+        <p class="cnpjError"></p>
+      </div>
+
+      <div class="form-radio">
+
+        <h3>É Simples Nacional?</h3>
+
+        <div class="radio-group">
+
+            <label for="radio-yes">Sim</label>
+            <input id="radio-yes" class="radio" value="yes" name="op1" type="radio" required>
+
+            <label for="radio-no">Não</label>
+            <input id="radio-no" class="radio" value="no" name="op1" type="radio" required checked>
+
+        </div>
+
+      </div>
+
+      <div class="form-group">
+        <label for="faturamento">Qual seu faturamento mensal</label>
+        <input id="faturamento" name="faturamento" type="text" placeholder="Seu faturamento mensal" required/>
+      </div>
+
+      <div class="form-group">
+        <label for="select">Selecione sua atividade</label>
+
+        <select name="select" id="select" required>
+          <option name="select" value="0.35">Mercado</option>
+          <option name="select" value="0.35">Açougue</option>
+          <option name="select" value="0.35">Padaria</option>
+          <option name="select" value="0.75">Loja de Bebidas</option>
+          <option name="select" value="0.75">Conveniências</option>
+          <option name="select" value="0.75">Farmácia</option>
+          <option name="select" value="0.75">Mecânica</option>
+          <option name="select" value="1">Representação Comercial</option>
+          <option name="select" value="1">Despachante Aduaneiro</option>
+          <option name="select" value="0.75">Restaurantes</option>
+          <option name="select" value="0.1">Outros</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="email">Seu email:</label>
+        <input id="email" name="email" type="email" placeholder="exemplo@exemplo.com.br" required/>
+      </div>
+
+      <button class="enviar" type="submit">Calcular</button>
+
+    </form>
+  </div>
+</body>
+
+</html>

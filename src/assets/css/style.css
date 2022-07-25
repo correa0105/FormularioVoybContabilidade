@@ -1,0 +1,162 @@
+@media screen and (max-width: 550px) {
+  .formulario {
+    width: 18rem;
+  }
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+  width: 100vw;
+  min-height: 100vh;
+  background: linear-gradient(45deg, rgb(232, 241, 199) 20%, #009034 100%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.formulario {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 20px 20px 35px 20px;
+  border-radius: 15px;
+  align-items: center;
+  width: 365px;
+  background: white;
+  gap: 10px;
+}
+
+#logo {
+  width: 20%;
+}
+
+.t1 {
+  display: block;
+  text-align: center;
+  font-size: 14px;
+  margin-top: -20px;
+  text-transform: uppercase;
+  color: rgb(20, 158, 20);
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  width: 100%;
+}
+
+.enviar {
+  background-color: #009034;
+  color: white;
+  padding: 5px;
+  font-size: 15px;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  width: 100%;
+  border: rgba(212, 212, 212, 0.438);
+  border-radius: 7px;
+  cursor: pointer;
+  transition: background-color 300ms ease-in-out;
+}
+
+.enviar:hover  {
+  background-color: #00722a;
+}
+
+label {
+  margin: 0 0 2px 2px;
+  font-size: 12px;
+  text-align: left;
+}
+
+input {
+  width: 100%;
+  padding: 8px;
+  border-radius: 7px;
+  border: 0.3px solid gray;
+}
+
+h3 {
+  margin-left: 2px;
+  font-weight: normal;
+  font-size: 12px;
+}
+
+.form-radio {
+  display: flex;
+  width: 100%;
+  gap: 12px;
+}
+
+.radio-group {
+  display: flex;
+}
+
+.radio-group .radio {
+  width: 18px;
+}
+
+.radio-group label {
+  margin-left: 8px;
+}
+
+.radio-group input {
+  margin-left: 4px;
+}
+
+#select {
+  padding: 5px;
+  -webkit-appearance: initial;
+  border-radius: 7px;
+}
+
+.saudacao {
+  font-size: 25px;
+}
+
+.mensagemRecuperar {
+  font-size: 10.5px;
+  text-align: center;
+}
+
+.valorRecuperado {
+  margin-top: 20px;
+  font-size: 35px;
+  font-weight: 700;
+}
+
+.contentButtons {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  width: 80%;
+}
+
+.contentButtons button {
+  margin-top: 15px;
+  background-color: #009034;
+  color: white;
+  padding: 7px 10px;
+  font-size: 13.5px;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  border: rgba(212, 212, 212, 0.438);
+  border-radius: 7px;
+  cursor: pointer;
+  transition: background-color 300ms ease-in-out;
+}
+
+.contentButtons button:hover  {
+  background-color: #00722a;
+}
+
+.cnpjError {
+  margin-left: 2px;
+  font-size: 11px;
+  color: red;
+}
