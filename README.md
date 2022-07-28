@@ -6,8 +6,6 @@
 ![Bitbucket open issues](https://img.shields.io/bitbucket/issues/correa0105/FormularioVoybContabilidade?style=for-the-badge)
 ![Bitbucket open pull requests](https://img.shields.io/bitbucket/pr-raw/correa0105/FormularioVoybContabilidade?style=for-the-badge)
 
-Este é uma Landing Page simples, feita apenas com CSS, ela tem como objetivo maior o aprendizado.
-
 # ☕ Descrição do Projeto
 
 Projeto feito para uma empresa de contabilidade, o projeto recebe dados da empresa do cliente e calcula quanto de imposto pode-se recuperar, na sequencia envia o lead capturado para o emaul do cliente através de uma API do o Formsubmit.
