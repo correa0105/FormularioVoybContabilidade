@@ -6,6 +6,8 @@
 ![Bitbucket open issues](https://img.shields.io/bitbucket/issues/correa0105/FormularioVoybContabilidade?style=for-the-badge)
 ![Bitbucket open pull requests](https://img.shields.io/bitbucket/pr-raw/correa0105/FormularioVoybContabilidade?style=for-the-badge)
 
+<img src="./public/assets/exemplo.JPG" alt="Exemplo do Projeto">
+
 # ☕ Descrição do Projeto
 
 Projeto feito para uma empresa de contabilidade, a aplicação recebe dados da empresa do cliente e calcula quanto de imposto pode-se recuperar, na sequencia envia o lead capturado para o emaul do cliente através de uma API do o Formsubmit.
