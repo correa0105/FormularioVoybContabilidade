@@ -25,6 +25,12 @@ Me chamo Lucas Corrêa, tenho 22 anos, e moro no Rio Grande do Sul.
         </sub>
       </a>
     </td>
+    mg src="https://media-exp1.licdn.com/dms/image/C4D03AQF1Z5ZyUqnQpw/profile-displayphoto-shrink_800_800/0/1625072032734?e=1664409600&v=beta&t=SxGZ2BjHMeDvUPReG0vJSpaq4qDXnWto0jRxXzFz3Kg" width="100px;" alt="Foto de Lucas Corrêa no GitHub"/><br>
+        <sub>
+            <b>Thiago Troleiz</b>
+        </sub>
+      </a>
+    </td>
 </table>
 
 OBRIGADO!
