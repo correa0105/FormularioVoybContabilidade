@@ -4,7 +4,7 @@ class FormMask {
 
         element.type = "tel"
         element.FormMask = this
-        
+
         this.input = element
         this.mask = mask
         this.char = replacementChar
@@ -28,40 +28,40 @@ class FormMask {
 
             this.cleanAndSetClasses(this.input, [className])
 
-            if(this.input.value == this.mask) this.input.value = ""
+            if (this.input.value == this.mask) this.input.value = ""
 
         })
-    
+
         this.input.addEventListener("keydown", e => {
-    
-            if(e.key == "Backspace" || e.key == "Delete") {
-                
-                this.deleteValue( this.input.value.split("") )
+
+            if (e.key == "Backspace" || e.key == "Delete") {
+
+                this.deleteValue(this.input.value.split(""))
                 e.preventDefault()
 
             }
 
         })
-    
+
         this.input.addEventListener("beforeinput", e => {
 
             e.preventDefault()
-    
+
             const key = e.key || e.data
             const numberKey = (!isNaN(key) && key != " ")
 
-            if(!numberKey) return
+            if (!numberKey) return
 
             const inputChars = this.input.value.split("")
 
             this.maskPattern(inputChars, key)
 
         })
-    
+
         this.input.addEventListener("paste", e => {
-    
+
             const data = e.clipboardData.getData("text")
-    
+
             this.onPasteData(data)
 
             e.preventDefault()
@@ -74,7 +74,7 @@ class FormMask {
 
         this.cleanAndSetClasses(this.input, [])
 
-        if(this.input.value == "" || this.input.value == this.mask) {
+        if (this.input.value == "" || this.input.value == this.mask) {
 
             this.input.value = this.mask
 
@@ -97,30 +97,30 @@ class FormMask {
     maskPattern(inputChars, key) {
 
         let cursor = this.input.selectionStart
-        
-        for(let i=cursor; i<inputChars.length; i++) {
+
+        for (let i = cursor; i < inputChars.length; i++) {
 
             let ignore = this.specialChars.indexOf(inputChars[i]) >= 0
 
-            if(!ignore) break
-            
+            if (!ignore) break
+
             cursor++
 
         }
-        
+
         inputChars.splice(cursor, 1, key)
-        
-        this.insertValue(inputChars.join(""), cursor+1)
+
+        this.insertValue(inputChars.join(""), cursor + 1)
 
     }
 
     insertValue(result, cursor) {
 
-        if(result.length != this.mask.length) return
+        if (result.length != this.mask.length) return
 
         this.input.value = result
 
-        if(cursor >= 0) this.input.setSelectionRange(cursor, cursor)
+        if (cursor >= 0) this.input.setSelectionRange(cursor, cursor)
 
     }
 
@@ -128,38 +128,38 @@ class FormMask {
 
         const withoutSelectionRange = this.checkSelectionRange(inputChars)
 
-        if(!withoutSelectionRange) return
+        if (!withoutSelectionRange) return
 
         let cursor = this.input.selectionStart
 
-        for(let i=0; i<inputChars.length; i++) {
+        for (let i = 0; i < inputChars.length; i++) {
 
-            let ignore = this.specialChars.indexOf(inputChars[cursor-1]) >= 0
+            let ignore = this.specialChars.indexOf(inputChars[cursor - 1]) >= 0
 
-            if(!ignore) break
-            
+            if (!ignore) break
+
             cursor -= 1
 
         }
 
-        inputChars.splice(cursor-1, 1, this.char)
+        inputChars.splice(cursor - 1, 1, this.char)
 
-        this.insertValue(inputChars.join(""), cursor-1)
+        this.insertValue(inputChars.join(""), cursor - 1)
 
     }
 
     checkSelectionRange(inputChars) {
 
-        if(this.input.selectionStart == this.input.selectionEnd) return true
+        if (this.input.selectionStart == this.input.selectionEnd) return true
 
         let start = this.input.selectionStart
         let end = this.input.selectionEnd
 
-        for(let i=start; i<end; i++) {
+        for (let i = start; i < end; i++) {
 
             let nonSpecialChar = this.specialChars.indexOf(inputChars[i]) < 0
-            
-            if(nonSpecialChar) inputChars.splice(i, 1, this.char)
+
+            if (nonSpecialChar) inputChars.splice(i, 1, this.char)
 
         }
 
@@ -170,16 +170,16 @@ class FormMask {
     }
 
     onPasteData(data) {
-        
+
         const maskChars = this.mask.split("")
         const dataChars = data.split("")
 
-        const onlyNumbers = dataChars.filter( value => !isNaN(value) && value != " " )
-        const maskWithoutSpecialChars = maskChars.filter( value => value == this.char )
+        const onlyNumbers = dataChars.filter(value => !isNaN(value) && value != " ")
+        const maskWithoutSpecialChars = maskChars.filter(value => value == this.char)
 
         const numberOfChars = maskWithoutSpecialChars.length
 
-        for(let i=0; i<numberOfChars; i++) {
+        for (let i = 0; i < numberOfChars; i++) {
 
             let positionChar = maskChars.indexOf(this.char)
             let number = onlyNumbers[i] || this.char

@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
+
 @media screen and (max-width: 550px) {
   .formulario {
     width: 18rem;
@@ -5,43 +7,52 @@
 }
 
 * {
+  font-family: 'Inter', sans-serif;
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  text-decoration: none;
 }
 
 body {
-  width: 100vw;
-  min-height: 100vh;
-  background: linear-gradient(45deg, rgb(232, 241, 199) 20%, #009034 100%);
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
+  width: 100vw;
+  min-height: 100vh;
+  background: linear-gradient(209.62deg, #009034 -3.17%, #E4F1E9 157.86%);
 }
 
 .formulario {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: center;
   padding: 20px 20px 35px 20px;
   border-radius: 15px;
-  align-items: center;
   width: 365px;
-  background: white;
+  background: rgba(249, 251, 242, 1);
   gap: 10px;
 }
 
-#logo {
-  width: 20%;
+.logoFora {
+  display: none;
+  width: 90px;
+  filter: brightness(0) invert(1);
+  margin-bottom: -20px;
+}
+
+.logo {
+  width: 90px;
 }
 
 .t1 {
   display: block;
   text-align: center;
+  text-transform: uppercase;
   font-size: 14px;
   margin-top: -20px;
-  text-transform: uppercase;
   color: rgb(20, 158, 20);
 }
 
@@ -55,9 +66,8 @@ body {
 .enviar {
   background-color: #009034;
   color: white;
-  padding: 5px;
   font-size: 15px;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  padding: 5px;
   width: 100%;
   border: rgba(212, 212, 212, 0.438);
   border-radius: 7px;
@@ -65,7 +75,7 @@ body {
   transition: background-color 300ms ease-in-out;
 }
 
-.enviar:hover  {
+.enviar:hover {
   background-color: #00722a;
 }
 
@@ -80,6 +90,7 @@ input {
   padding: 8px;
   border-radius: 7px;
   border: 0.3px solid gray;
+  background-color: rgba(249, 251, 242, 1);
 }
 
 h3 {
@@ -112,23 +123,41 @@ h3 {
 
 #select {
   padding: 5px;
-  -webkit-appearance: initial;
   border-radius: 7px;
+  background-color: rgba(249, 251, 242, 1);
 }
 
 .saudacao {
-  font-size: 25px;
+  display: none;
+  text-align: center;
+  font-size: 26px;
+  margin: 25px 0px;
+  color: rgba(255, 255, 255, 1);
 }
 
 .mensagemRecuperar {
-  font-size: 10.5px;
-  text-align: center;
+  font-size: 23px;
+  text-align: left;
+  color: rgba(148, 112, 112, 1);
+}
+
+.contentValorRecuperado {
+  width: 100%;
+  border-radius: 12px;
+  border: 1px solid rgba(0, 144, 52, 1);
+  padding: 5px 15px;
+  height: 80px;
+}
+
+.contentValorRecuperado legend {
+  padding: 0 5px;
+  color: rgba(147, 112, 112, 1);
 }
 
 .valorRecuperado {
-  margin-top: 20px;
-  font-size: 35px;
+  font-size: 28px;
   font-weight: 700;
+  color: rgba(182, 178, 86, 1);
 }
 
 .contentButtons {
@@ -139,20 +168,37 @@ h3 {
 }
 
 .contentButtons button {
-  margin-top: 15px;
-  background-color: #009034;
+  margin: 40px 0 20px 0;
   color: white;
-  padding: 7px 10px;
-  font-size: 13.5px;
+  padding: 15px 25px;
+  font-size: 25px;
+  font-weight: 600;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  border: rgba(212, 212, 212, 0.438);
-  border-radius: 7px;
+  background: radial-gradient(1249.57% 3887.38% at 107.24% -26.49%, #009034 0%, #F9FBF2 100%);
+  border-radius: 12px;
+  border: none;
   cursor: pointer;
   transition: background-color 300ms ease-in-out;
 }
 
-.contentButtons button:hover  {
+.contentButtons button a {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  color: white;
+}
+
+.contentButtons button:hover {
   background-color: #00722a;
+}
+
+.seguranca {
+  display: none;
+  text-align: center;
+  font-size: 13px;
+  margin: 15px;
+  margin-top: 50px;
+  color: #614B4B;
 }
 
 .cnpjError {

@@ -2,6 +2,7 @@
 <html lang="pt-br">
 
 <head>
+  
   <link rel="shortcut icon" href="https://voyb.com.br/wp-content/uploads/2022/07/Logo-com-gradient-paleta-de-cores.png">
   <link rel="apple-touch-icon" sizes="57x57"
     href="https://voyb.com.br/wp-content/uploads/2022/07/Logo-com-gradient-paleta-de-cores.png">
@@ -15,21 +16,24 @@
 </head>
 
 <body>
+
+  <img class="logoFora" src="https://voyb.com.br/wp-content/uploads/2022/03/Logo-sem-fundo.png" alt="logo da voyb" />
+  <h1 class="saudacao">Olá, <span class="spanEmpresa"></span>!</h1>
   <div class="container">
     <form class="formulario" id="calculadora-tributaria" method="POST" GET="result.html">
 
-      <img id="logo" src="https://voyb.com.br/wp-content/uploads/2022/03/Logo-sem-fundo.png" alt="logo da voyb" />
+      <img class="logo" src="https://voyb.com.br/wp-content/uploads/2022/03/Logo-sem-fundo.png" alt="logo da voyb" />
 
       <h1 class="t1">Veja se sua empresa pode recuperar impostos</h1>
 
       <div class="form-group">
         <label class="nomeempresa" autofocus>Qual o nome da sua empresa?</label>
-        <input id="nomeEmpresa" name="empresa" type="text" placeholder="Nome da sua empresa" required/>
+        <input id="nomeEmpresa" name="empresa" type="text" placeholder="Nome da sua empresa" required />
       </div>
 
       <div class="form-group">
         <label class="nomeempresa">CNPJ da sua empresa</label>
-        <input id="cnpj" name="cnpj" type="text" placeholder="00.000.000/0000-00" required/>
+        <input id="cnpj" name="cnpj" type="text" placeholder="00.000.000/0000-00" required />
         <p class="cnpjError"></p>
       </div>
 
@@ -39,11 +43,11 @@
 
         <div class="radio-group">
 
-            <label for="radio-yes">Sim</label>
-            <input id="radio-yes" class="radio" value="yes" name="op1" type="radio" required>
+          <label for="radio-yes">Sim</label>
+          <input id="radio-yes" class="radio" value="yes" name="op1" type="radio" required>
 
-            <label for="radio-no">Não</label>
-            <input id="radio-no" class="radio" value="no" name="op1" type="radio" required checked>
+          <label for="radio-no">Não</label>
+          <input id="radio-no" class="radio" value="no" name="op1" type="radio" required>
 
         </div>
 
@@ -51,7 +55,7 @@
 
       <div class="form-group">
         <label for="faturamento">Qual seu faturamento mensal</label>
-        <input id="faturamento" name="faturamento" type="text" placeholder="Seu faturamento mensal" required/>
+        <input id="faturamento" name="faturamento" type="text" placeholder="Seu faturamento mensal" required />
       </div>
 
       <div class="form-group">
@@ -74,13 +78,17 @@
 
       <div class="form-group">
         <label for="email">Seu email:</label>
-        <input id="email" name="email" type="email" placeholder="exemplo@exemplo.com.br" required/>
+        <input id="email" name="email" type="email" placeholder="exemplo@exemplo.com.br" required />
       </div>
 
       <button class="enviar" type="submit">Calcular</button>
 
     </form>
   </div>
+  <h2 class="seguranca">
+      <span>
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-lock-fill" viewBox="0 0 16 16"><path d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z" /></svg>
+      </span> Seus dados estão seguros conosco.</h2>
 </body>
 
 </html>

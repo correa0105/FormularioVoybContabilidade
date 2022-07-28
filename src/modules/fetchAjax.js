@@ -1,6 +1,9 @@
 import calcularTributos from "./calcularImpostos";
 
 const formCalculadoraTributaria = document.querySelector("#calculadora-tributaria");
+const displaySaudacao = document.querySelector(".saudacao");
+const displaySeguranca = document.querySelector(".seguranca");
+const displayLogo = document.querySelector(".logoFora");
 
 formCalculadoraTributaria.addEventListener("submit", event => {
     event.preventDefault();
@@ -9,13 +12,15 @@ formCalculadoraTributaria.addEventListener("submit", event => {
     const cnpjEmpresa = formCalculadoraTributaria.querySelector("#cnpj").value;
     const emailEmpresa = formCalculadoraTributaria.querySelector("#email").value;
     const faturamento = formCalculadoraTributaria.querySelector("#faturamento").value;
-    const atividade = document.querySelector("#select").value;
-    const eSimplesNacional = document.querySelector("#radio-no");
+    const atividade = document.querySelector("#select");
+    const eSimplesNacional = document.querySelector("#radio-yes");
 
     const cnpjVerdadeiro = validarCNPJ(cnpjEmpresa);
 
+    const simplesNacional = eSimplesNacional.checked ? "É Simples Nacional" : "Não é Simples Nacional";
+
     if (cnpjVerdadeiro) {
-        fetch("https://formsubmit.co/ajax/contato.lucas0105@gmail.com", {
+        fetch("https://formsubmit.co/ajax/thiago@voyb.com.br", {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json',
@@ -25,38 +30,45 @@ formCalculadoraTributaria.addEventListener("submit", event => {
                 Email: emailEmpresa,
                 Empresa: nomeEmpresa,
                 CNPJ: cnpjEmpresa,
-                Faturamento: faturamento
+                Faturamento: faturamento,
+                Atividade: atividade.options[atividade.selectedIndex].text,
+                Simples_Nacional: simplesNacional
             })
         })
             .then(response => response.json())
             .then(data => console.log(data))
             .catch(error => console.log(error));
 
-        const calculation = calcularTributos(faturamento, atividade, eSimplesNacional);
-        loadPage(formCalculadoraTributaria, calculation, nomeEmpresa);
+        const calculation = calcularTributos(faturamento, atividade.value, eSimplesNacional);
+        const brlCalculation = calculation.toLocaleString('pt-br', { style: 'currency', currency: 'BRL' });
+        loadPage(formCalculadoraTributaria, brlCalculation, nomeEmpresa);
     } else {
         erroCnpj()
     }
 })
 
-async function loadPage(element, calculation, nomeEmpresa) {
+async function loadPage(element, brlCalculation, nomeEmpresa) {
     try {
         const get = element.getAttribute("GET");
         const response = await fetch(get);
         const html = await response.text();
 
-        loadResult(html, calculation, nomeEmpresa);
+        loadResult(html, brlCalculation, nomeEmpresa);
+        innerHref();
     } catch (err) {
         console.log("Deu erro!");
     }
 }
 
-function loadResult(response, calculation, nomeEmpresa) {
+function loadResult(response, brlCalculation, nomeEmpresa) {
     const result = document.querySelector(".container");
     result.innerHTML = response;
 
-    document.querySelector(".valorRecuperado").innerHTML = `R$ ${calculation}`;
+    document.querySelector(".valorRecuperado").innerHTML = brlCalculation;
     document.querySelector(".spanEmpresa").innerHTML = nomeEmpresa;
+    displaySaudacao.style.display = "block";
+    displaySeguranca.style.display = "block";
+    displayLogo.style.display = "block";
 }
 
 function validarCNPJ(value) {
@@ -119,4 +131,10 @@ function erroCnpj() {
     const campoErro = document.querySelector(".cnpjError");
     const cnpjErro = "CNPJ Inválido";
     campoErro.innerHTML = cnpjErro;
+}
+
+function innerHref() {
+    const linkRecuperar = document.querySelector("#linkRecuperar");
+    const comoRecuperar = document.querySelector(".valorRecuperado").innerHTML.replace("R$&nbsp;", "");
+    linkRecuperar.href = `https://api.whatsapp.com/send?phone=5551997013861&text=Ol%C3%A1%2C%20gostaria%20de%20saber%20como%20eu%20posso%20recuperar%20R$%20${comoRecuperar}%20de%20impostos`;
 }

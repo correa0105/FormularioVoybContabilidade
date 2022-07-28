@@ -14,9 +14,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 function calcularTributos(faturamento, atividade, eSimplesNacional) {
   if (eSimplesNacional.checked) {
-    return (faturamento * atividade * 0.00208 * 60).toFixed(2);
+    return faturamento * atividade * 0.00208 * 60;
   } else {
-    return (faturamento * 0.00112 * 60).toFixed(2);
+    return faturamento * 0.00112 * 60;
   }
 }
 
@@ -53,18 +53,22 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 
 var formCalculadoraTributaria = document.querySelector("#calculadora-tributaria");
+var displaySaudacao = document.querySelector(".saudacao");
+var displaySeguranca = document.querySelector(".seguranca");
+var displayLogo = document.querySelector(".logoFora");
 formCalculadoraTributaria.addEventListener("submit", function (event) {
   event.preventDefault();
   var nomeEmpresa = formCalculadoraTributaria.querySelector("#nomeEmpresa").value;
   var cnpjEmpresa = formCalculadoraTributaria.querySelector("#cnpj").value;
   var emailEmpresa = formCalculadoraTributaria.querySelector("#email").value;
   var faturamento = formCalculadoraTributaria.querySelector("#faturamento").value;
-  var atividade = document.querySelector("#select").value;
-  var eSimplesNacional = document.querySelector("#radio-no");
+  var atividade = document.querySelector("#select");
+  var eSimplesNacional = document.querySelector("#radio-yes");
   var cnpjVerdadeiro = validarCNPJ(cnpjEmpresa);
+  var simplesNacional = eSimplesNacional.checked ? "É Simples Nacional" : "Não é Simples Nacional";
 
   if (cnpjVerdadeiro) {
-    fetch("https://formsubmit.co/ajax/contato.lucas0105@gmail.com", {
+    fetch("https://formsubmit.co/ajax/thiago@voyb.com.br", {
       method: "POST",
       headers: {
         'Content-Type': 'application/json',
@@ -74,7 +78,9 @@ formCalculadoraTributaria.addEventListener("submit", function (event) {
         Email: emailEmpresa,
         Empresa: nomeEmpresa,
         CNPJ: cnpjEmpresa,
-        Faturamento: faturamento
+        Faturamento: faturamento,
+        Atividade: atividade.options[atividade.selectedIndex].text,
+        Simples_Nacional: simplesNacional
       })
     }).then(function (response) {
       return response.json();
@@ -83,8 +89,12 @@ formCalculadoraTributaria.addEventListener("submit", function (event) {
     })["catch"](function (error) {
       return console.log(error);
     });
-    var calculation = (0,_calcularImpostos__WEBPACK_IMPORTED_MODULE_0__["default"])(faturamento, atividade, eSimplesNacional);
-    loadPage(formCalculadoraTributaria, calculation, nomeEmpresa);
+    var calculation = (0,_calcularImpostos__WEBPACK_IMPORTED_MODULE_0__["default"])(faturamento, atividade.value, eSimplesNacional);
+    var brlCalculation = calculation.toLocaleString('pt-br', {
+      style: 'currency',
+      currency: 'BRL'
+    });
+    loadPage(formCalculadoraTributaria, brlCalculation, nomeEmpresa);
   } else {
     erroCnpj();
   }
@@ -95,7 +105,7 @@ function loadPage(_x, _x2, _x3) {
 }
 
 function _loadPage() {
-  _loadPage = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(element, calculation, nomeEmpresa) {
+  _loadPage = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(element, brlCalculation, nomeEmpresa) {
     var get, response, html;
     return _regeneratorRuntime().wrap(function _callee$(_context) {
       while (1) {
@@ -113,30 +123,34 @@ function _loadPage() {
 
           case 7:
             html = _context.sent;
-            loadResult(html, calculation, nomeEmpresa);
-            _context.next = 14;
+            loadResult(html, brlCalculation, nomeEmpresa);
+            innerHref();
+            _context.next = 15;
             break;
 
-          case 11:
-            _context.prev = 11;
+          case 12:
+            _context.prev = 12;
             _context.t0 = _context["catch"](0);
             console.log("Deu erro!");
 
-          case 14:
+          case 15:
           case "end":
             return _context.stop();
         }
       }
-    }, _callee, null, [[0, 11]]);
+    }, _callee, null, [[0, 12]]);
   }));
   return _loadPage.apply(this, arguments);
 }
 
-function loadResult(response, calculation, nomeEmpresa) {
+function loadResult(response, brlCalculation, nomeEmpresa) {
   var result = document.querySelector(".container");
   result.innerHTML = response;
-  document.querySelector(".valorRecuperado").innerHTML = "R$ ".concat(calculation);
+  document.querySelector(".valorRecuperado").innerHTML = brlCalculation;
   document.querySelector(".spanEmpresa").innerHTML = nomeEmpresa;
+  displaySaudacao.style.display = "block";
+  displaySeguranca.style.display = "block";
+  displayLogo.style.display = "block";
 }
 
 function validarCNPJ(value) {
@@ -189,6 +203,12 @@ function erroCnpj() {
   var campoErro = document.querySelector(".cnpjError");
   var cnpjErro = "CNPJ Inválido";
   campoErro.innerHTML = cnpjErro;
+}
+
+function innerHref() {
+  var linkRecuperar = document.querySelector("#linkRecuperar");
+  var comoRecuperar = document.querySelector(".valorRecuperado").innerHTML.replace("R$&nbsp;", "");
+  linkRecuperar.href = "https://api.whatsapp.com/send?phone=5551997013861&text=Ol%C3%A1%2C%20gostaria%20de%20saber%20como%20eu%20posso%20recuperar%20R$%20".concat(comoRecuperar, "%20de%20impostos");
 }
 
 /***/ }),
@@ -389,8 +409,9 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
+___CSS_LOADER_EXPORT___.push([module.id, "@import url(https://fonts.googleapis.com/css2?family=Inter&display=swap);"]);
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "@media screen and (max-width: 550px) {\r\n  .formulario {\r\n    width: 18rem;\r\n  }\r\n}\r\n\r\n* {\r\n  box-sizing: border-box;\r\n  margin: 0;\r\n  padding: 0;\r\n  font-family: \"Segoe UI\", Tahoma, Geneva, Verdana, sans-serif;\r\n}\r\n\r\nbody {\r\n  width: 100vw;\r\n  min-height: 100vh;\r\n  background: linear-gradient(45deg, rgb(232, 241, 199) 20%, #009034 100%);\r\n  display: flex;\r\n  justify-content: center;\r\n  align-items: center;\r\n}\r\n\r\n.formulario {\r\n  display: flex;\r\n  flex-direction: column;\r\n  justify-content: center;\r\n  padding: 20px 20px 35px 20px;\r\n  border-radius: 15px;\r\n  align-items: center;\r\n  width: 365px;\r\n  background: white;\r\n  gap: 10px;\r\n}\r\n\r\n#logo {\r\n  width: 20%;\r\n}\r\n\r\n.t1 {\r\n  display: block;\r\n  text-align: center;\r\n  font-size: 14px;\r\n  margin-top: -20px;\r\n  text-transform: uppercase;\r\n  color: rgb(20, 158, 20);\r\n}\r\n\r\n.form-group {\r\n  display: flex;\r\n  flex-direction: column;\r\n  gap: 2px;\r\n  width: 100%;\r\n}\r\n\r\n.enviar {\r\n  background-color: #009034;\r\n  color: white;\r\n  padding: 5px;\r\n  font-size: 15px;\r\n  font-family: \"Segoe UI\", Tahoma, Geneva, Verdana, sans-serif;\r\n  width: 100%;\r\n  border: rgba(212, 212, 212, 0.438);\r\n  border-radius: 7px;\r\n  cursor: pointer;\r\n  transition: background-color 300ms ease-in-out;\r\n}\r\n\r\n.enviar:hover  {\r\n  background-color: #00722a;\r\n}\r\n\r\nlabel {\r\n  margin: 0 0 2px 2px;\r\n  font-size: 12px;\r\n  text-align: left;\r\n}\r\n\r\ninput {\r\n  width: 100%;\r\n  padding: 8px;\r\n  border-radius: 7px;\r\n  border: 0.3px solid gray;\r\n}\r\n\r\nh3 {\r\n  margin-left: 2px;\r\n  font-weight: normal;\r\n  font-size: 12px;\r\n}\r\n\r\n.form-radio {\r\n  display: flex;\r\n  width: 100%;\r\n  gap: 12px;\r\n}\r\n\r\n.radio-group {\r\n  display: flex;\r\n}\r\n\r\n.radio-group .radio {\r\n  width: 18px;\r\n}\r\n\r\n.radio-group label {\r\n  margin-left: 8px;\r\n}\r\n\r\n.radio-group input {\r\n  margin-left: 4px;\r\n}\r\n\r\n#select {\r\n  padding: 5px;\r\n  -webkit-appearance: initial;\r\n  border-radius: 7px;\r\n}\r\n\r\n.saudacao {\r\n  font-size: 25px;\r\n}\r\n\r\n.mensagemRecuperar {\r\n  font-size: 10.5px;\r\n  text-align: center;\r\n}\r\n\r\n.valorRecuperado {\r\n  margin-top: 20px;\r\n  font-size: 35px;\r\n  font-weight: 700;\r\n}\r\n\r\n.contentButtons {\r\n  display: flex;\r\n  justify-content: center;\r\n  gap: 10px;\r\n  width: 80%;\r\n}\r\n\r\n.contentButtons button {\r\n  margin-top: 15px;\r\n  background-color: #009034;\r\n  color: white;\r\n  padding: 7px 10px;\r\n  font-size: 13.5px;\r\n  font-family: \"Segoe UI\", Tahoma, Geneva, Verdana, sans-serif;\r\n  border: rgba(212, 212, 212, 0.438);\r\n  border-radius: 7px;\r\n  cursor: pointer;\r\n  transition: background-color 300ms ease-in-out;\r\n}\r\n\r\n.contentButtons button:hover  {\r\n  background-color: #00722a;\r\n}\r\n\r\n.cnpjError {\r\n  margin-left: 2px;\r\n  font-size: 11px;\r\n  color: red;\r\n}", "",{"version":3,"sources":["webpack://./src/assets/css/style.css"],"names":[],"mappings":"AAAA;EACE;IACE,YAAY;EACd;AACF;;AAEA;EACE,sBAAsB;EACtB,SAAS;EACT,UAAU;EACV,4DAA4D;AAC9D;;AAEA;EACE,YAAY;EACZ,iBAAiB;EACjB,wEAAwE;EACxE,aAAa;EACb,uBAAuB;EACvB,mBAAmB;AACrB;;AAEA;EACE,aAAa;EACb,sBAAsB;EACtB,uBAAuB;EACvB,4BAA4B;EAC5B,mBAAmB;EACnB,mBAAmB;EACnB,YAAY;EACZ,iBAAiB;EACjB,SAAS;AACX;;AAEA;EACE,UAAU;AACZ;;AAEA;EACE,cAAc;EACd,kBAAkB;EAClB,eAAe;EACf,iBAAiB;EACjB,yBAAyB;EACzB,uBAAuB;AACzB;;AAEA;EACE,aAAa;EACb,sBAAsB;EACtB,QAAQ;EACR,WAAW;AACb;;AAEA;EACE,yBAAyB;EACzB,YAAY;EACZ,YAAY;EACZ,eAAe;EACf,4DAA4D;EAC5D,WAAW;EACX,kCAAkC;EAClC,kBAAkB;EAClB,eAAe;EACf,8CAA8C;AAChD;;AAEA;EACE,yBAAyB;AAC3B;;AAEA;EACE,mBAAmB;EACnB,eAAe;EACf,gBAAgB;AAClB;;AAEA;EACE,WAAW;EACX,YAAY;EACZ,kBAAkB;EAClB,wBAAwB;AAC1B;;AAEA;EACE,gBAAgB;EAChB,mBAAmB;EACnB,eAAe;AACjB;;AAEA;EACE,aAAa;EACb,WAAW;EACX,SAAS;AACX;;AAEA;EACE,aAAa;AACf;;AAEA;EACE,WAAW;AACb;;AAEA;EACE,gBAAgB;AAClB;;AAEA;EACE,gBAAgB;AAClB;;AAEA;EACE,YAAY;EACZ,2BAA2B;EAC3B,kBAAkB;AACpB;;AAEA;EACE,eAAe;AACjB;;AAEA;EACE,iBAAiB;EACjB,kBAAkB;AACpB;;AAEA;EACE,gBAAgB;EAChB,eAAe;EACf,gBAAgB;AAClB;;AAEA;EACE,aAAa;EACb,uBAAuB;EACvB,SAAS;EACT,UAAU;AACZ;;AAEA;EACE,gBAAgB;EAChB,yBAAyB;EACzB,YAAY;EACZ,iBAAiB;EACjB,iBAAiB;EACjB,4DAA4D;EAC5D,kCAAkC;EAClC,kBAAkB;EAClB,eAAe;EACf,8CAA8C;AAChD;;AAEA;EACE,yBAAyB;AAC3B;;AAEA;EACE,gBAAgB;EAChB,eAAe;EACf,UAAU;AACZ","sourcesContent":["@media screen and (max-width: 550px) {\r\n  .formulario {\r\n    width: 18rem;\r\n  }\r\n}\r\n\r\n* {\r\n  box-sizing: border-box;\r\n  margin: 0;\r\n  padding: 0;\r\n  font-family: \"Segoe UI\", Tahoma, Geneva, Verdana, sans-serif;\r\n}\r\n\r\nbody {\r\n  width: 100vw;\r\n  min-height: 100vh;\r\n  background: linear-gradient(45deg, rgb(232, 241, 199) 20%, #009034 100%);\r\n  display: flex;\r\n  justify-content: center;\r\n  align-items: center;\r\n}\r\n\r\n.formulario {\r\n  display: flex;\r\n  flex-direction: column;\r\n  justify-content: center;\r\n  padding: 20px 20px 35px 20px;\r\n  border-radius: 15px;\r\n  align-items: center;\r\n  width: 365px;\r\n  background: white;\r\n  gap: 10px;\r\n}\r\n\r\n#logo {\r\n  width: 20%;\r\n}\r\n\r\n.t1 {\r\n  display: block;\r\n  text-align: center;\r\n  font-size: 14px;\r\n  margin-top: -20px;\r\n  text-transform: uppercase;\r\n  color: rgb(20, 158, 20);\r\n}\r\n\r\n.form-group {\r\n  display: flex;\r\n  flex-direction: column;\r\n  gap: 2px;\r\n  width: 100%;\r\n}\r\n\r\n.enviar {\r\n  background-color: #009034;\r\n  color: white;\r\n  padding: 5px;\r\n  font-size: 15px;\r\n  font-family: \"Segoe UI\", Tahoma, Geneva, Verdana, sans-serif;\r\n  width: 100%;\r\n  border: rgba(212, 212, 212, 0.438);\r\n  border-radius: 7px;\r\n  cursor: pointer;\r\n  transition: background-color 300ms ease-in-out;\r\n}\r\n\r\n.enviar:hover  {\r\n  background-color: #00722a;\r\n}\r\n\r\nlabel {\r\n  margin: 0 0 2px 2px;\r\n  font-size: 12px;\r\n  text-align: left;\r\n}\r\n\r\ninput {\r\n  width: 100%;\r\n  padding: 8px;\r\n  border-radius: 7px;\r\n  border: 0.3px solid gray;\r\n}\r\n\r\nh3 {\r\n  margin-left: 2px;\r\n  font-weight: normal;\r\n  font-size: 12px;\r\n}\r\n\r\n.form-radio {\r\n  display: flex;\r\n  width: 100%;\r\n  gap: 12px;\r\n}\r\n\r\n.radio-group {\r\n  display: flex;\r\n}\r\n\r\n.radio-group .radio {\r\n  width: 18px;\r\n}\r\n\r\n.radio-group label {\r\n  margin-left: 8px;\r\n}\r\n\r\n.radio-group input {\r\n  margin-left: 4px;\r\n}\r\n\r\n#select {\r\n  padding: 5px;\r\n  -webkit-appearance: initial;\r\n  border-radius: 7px;\r\n}\r\n\r\n.saudacao {\r\n  font-size: 25px;\r\n}\r\n\r\n.mensagemRecuperar {\r\n  font-size: 10.5px;\r\n  text-align: center;\r\n}\r\n\r\n.valorRecuperado {\r\n  margin-top: 20px;\r\n  font-size: 35px;\r\n  font-weight: 700;\r\n}\r\n\r\n.contentButtons {\r\n  display: flex;\r\n  justify-content: center;\r\n  gap: 10px;\r\n  width: 80%;\r\n}\r\n\r\n.contentButtons button {\r\n  margin-top: 15px;\r\n  background-color: #009034;\r\n  color: white;\r\n  padding: 7px 10px;\r\n  font-size: 13.5px;\r\n  font-family: \"Segoe UI\", Tahoma, Geneva, Verdana, sans-serif;\r\n  border: rgba(212, 212, 212, 0.438);\r\n  border-radius: 7px;\r\n  cursor: pointer;\r\n  transition: background-color 300ms ease-in-out;\r\n}\r\n\r\n.contentButtons button:hover  {\r\n  background-color: #00722a;\r\n}\r\n\r\n.cnpjError {\r\n  margin-left: 2px;\r\n  font-size: 11px;\r\n  color: red;\r\n}"],"sourceRoot":""}]);
+___CSS_LOADER_EXPORT___.push([module.id, "@media screen and (max-width: 550px) {\r\n  .formulario {\r\n    width: 18rem;\r\n  }\r\n}\r\n\r\n* {\r\n  font-family: 'Inter', sans-serif;\r\n  box-sizing: border-box;\r\n  margin: 0;\r\n  padding: 0;\r\n  text-decoration: none;\r\n}\r\n\r\nbody {\r\n  display: flex;\r\n  flex-direction: column;\r\n  justify-content: center;\r\n  align-items: center;\r\n  width: 100vw;\r\n  min-height: 100vh;\r\n  background: linear-gradient(209.62deg, #009034 -3.17%, #E4F1E9 157.86%);\r\n}\r\n\r\n.formulario {\r\n  display: flex;\r\n  flex-direction: column;\r\n  justify-content: center;\r\n  align-items: center;\r\n  padding: 20px 20px 35px 20px;\r\n  border-radius: 15px;\r\n  width: 365px;\r\n  background: rgba(249, 251, 242, 1);\r\n  gap: 10px;\r\n}\r\n\r\n.logoFora {\r\n  display: none;\r\n  width: 90px;\r\n  filter: brightness(0) invert(1);\r\n  margin-bottom: -20px;\r\n}\r\n\r\n.logo {\r\n  width: 90px;\r\n}\r\n\r\n.t1 {\r\n  display: block;\r\n  text-align: center;\r\n  text-transform: uppercase;\r\n  font-size: 14px;\r\n  margin-top: -20px;\r\n  color: rgb(20, 158, 20);\r\n}\r\n\r\n.form-group {\r\n  display: flex;\r\n  flex-direction: column;\r\n  gap: 2px;\r\n  width: 100%;\r\n}\r\n\r\n.enviar {\r\n  background-color: #009034;\r\n  color: white;\r\n  font-size: 15px;\r\n  padding: 5px;\r\n  width: 100%;\r\n  border: rgba(212, 212, 212, 0.438);\r\n  border-radius: 7px;\r\n  cursor: pointer;\r\n  transition: background-color 300ms ease-in-out;\r\n}\r\n\r\n.enviar:hover {\r\n  background-color: #00722a;\r\n}\r\n\r\nlabel {\r\n  margin: 0 0 2px 2px;\r\n  font-size: 12px;\r\n  text-align: left;\r\n}\r\n\r\ninput {\r\n  width: 100%;\r\n  padding: 8px;\r\n  border-radius: 7px;\r\n  border: 0.3px solid gray;\r\n  background-color: rgba(249, 251, 242, 1);\r\n}\r\n\r\nh3 {\r\n  margin-left: 2px;\r\n  font-weight: normal;\r\n  font-size: 12px;\r\n}\r\n\r\n.form-radio {\r\n  display: flex;\r\n  width: 100%;\r\n  gap: 12px;\r\n}\r\n\r\n.radio-group {\r\n  display: flex;\r\n}\r\n\r\n.radio-group .radio {\r\n  width: 18px;\r\n}\r\n\r\n.radio-group label {\r\n  margin-left: 8px;\r\n}\r\n\r\n.radio-group input {\r\n  margin-left: 4px;\r\n}\r\n\r\n#select {\r\n  padding: 5px;\r\n  border-radius: 7px;\r\n  background-color: rgba(249, 251, 242, 1);\r\n}\r\n\r\n.saudacao {\r\n  display: none;\r\n  text-align: center;\r\n  font-size: 26px;\r\n  margin: 25px 0px;\r\n  color: rgba(255, 255, 255, 1);\r\n}\r\n\r\n.mensagemRecuperar {\r\n  font-size: 23px;\r\n  text-align: left;\r\n  color: rgba(148, 112, 112, 1);\r\n}\r\n\r\n.contentValorRecuperado {\r\n  width: 100%;\r\n  border-radius: 12px;\r\n  border: 1px solid rgba(0, 144, 52, 1);\r\n  padding: 5px 15px;\r\n  height: 80px;\r\n}\r\n\r\n.contentValorRecuperado legend {\r\n  padding: 0 5px;\r\n  color: rgba(147, 112, 112, 1);\r\n}\r\n\r\n.valorRecuperado {\r\n  font-size: 28px;\r\n  font-weight: 700;\r\n  color: rgba(182, 178, 86, 1);\r\n}\r\n\r\n.contentButtons {\r\n  display: flex;\r\n  justify-content: center;\r\n  gap: 10px;\r\n  width: 80%;\r\n}\r\n\r\n.contentButtons button {\r\n  margin: 40px 0 20px 0;\r\n  color: white;\r\n  padding: 15px 25px;\r\n  font-size: 25px;\r\n  font-weight: 600;\r\n  font-family: \"Segoe UI\", Tahoma, Geneva, Verdana, sans-serif;\r\n  background: radial-gradient(1249.57% 3887.38% at 107.24% -26.49%, #009034 0%, #F9FBF2 100%);\r\n  border-radius: 12px;\r\n  border: none;\r\n  cursor: pointer;\r\n  transition: background-color 300ms ease-in-out;\r\n}\r\n\r\n.contentButtons button a {\r\n  display: flex;\r\n  align-items: center;\r\n  gap: 5px;\r\n  color: white;\r\n}\r\n\r\n.contentButtons button:hover {\r\n  background-color: #00722a;\r\n}\r\n\r\n.seguranca {\r\n  display: none;\r\n  text-align: center;\r\n  font-size: 13px;\r\n  margin: 15px;\r\n  margin-top: 50px;\r\n  color: #614B4B;\r\n}\r\n\r\n.cnpjError {\r\n  margin-left: 2px;\r\n  font-size: 11px;\r\n  color: red;\r\n}", "",{"version":3,"sources":["webpack://./src/assets/css/style.css"],"names":[],"mappings":"AAEA;EACE;IACE,YAAY;EACd;AACF;;AAEA;EACE,gCAAgC;EAChC,sBAAsB;EACtB,SAAS;EACT,UAAU;EACV,qBAAqB;AACvB;;AAEA;EACE,aAAa;EACb,sBAAsB;EACtB,uBAAuB;EACvB,mBAAmB;EACnB,YAAY;EACZ,iBAAiB;EACjB,uEAAuE;AACzE;;AAEA;EACE,aAAa;EACb,sBAAsB;EACtB,uBAAuB;EACvB,mBAAmB;EACnB,4BAA4B;EAC5B,mBAAmB;EACnB,YAAY;EACZ,kCAAkC;EAClC,SAAS;AACX;;AAEA;EACE,aAAa;EACb,WAAW;EACX,+BAA+B;EAC/B,oBAAoB;AACtB;;AAEA;EACE,WAAW;AACb;;AAEA;EACE,cAAc;EACd,kBAAkB;EAClB,yBAAyB;EACzB,eAAe;EACf,iBAAiB;EACjB,uBAAuB;AACzB;;AAEA;EACE,aAAa;EACb,sBAAsB;EACtB,QAAQ;EACR,WAAW;AACb;;AAEA;EACE,yBAAyB;EACzB,YAAY;EACZ,eAAe;EACf,YAAY;EACZ,WAAW;EACX,kCAAkC;EAClC,kBAAkB;EAClB,eAAe;EACf,8CAA8C;AAChD;;AAEA;EACE,yBAAyB;AAC3B;;AAEA;EACE,mBAAmB;EACnB,eAAe;EACf,gBAAgB;AAClB;;AAEA;EACE,WAAW;EACX,YAAY;EACZ,kBAAkB;EAClB,wBAAwB;EACxB,wCAAwC;AAC1C;;AAEA;EACE,gBAAgB;EAChB,mBAAmB;EACnB,eAAe;AACjB;;AAEA;EACE,aAAa;EACb,WAAW;EACX,SAAS;AACX;;AAEA;EACE,aAAa;AACf;;AAEA;EACE,WAAW;AACb;;AAEA;EACE,gBAAgB;AAClB;;AAEA;EACE,gBAAgB;AAClB;;AAEA;EACE,YAAY;EACZ,kBAAkB;EAClB,wCAAwC;AAC1C;;AAEA;EACE,aAAa;EACb,kBAAkB;EAClB,eAAe;EACf,gBAAgB;EAChB,6BAA6B;AAC/B;;AAEA;EACE,eAAe;EACf,gBAAgB;EAChB,6BAA6B;AAC/B;;AAEA;EACE,WAAW;EACX,mBAAmB;EACnB,qCAAqC;EACrC,iBAAiB;EACjB,YAAY;AACd;;AAEA;EACE,cAAc;EACd,6BAA6B;AAC/B;;AAEA;EACE,eAAe;EACf,gBAAgB;EAChB,4BAA4B;AAC9B;;AAEA;EACE,aAAa;EACb,uBAAuB;EACvB,SAAS;EACT,UAAU;AACZ;;AAEA;EACE,qBAAqB;EACrB,YAAY;EACZ,kBAAkB;EAClB,eAAe;EACf,gBAAgB;EAChB,4DAA4D;EAC5D,2FAA2F;EAC3F,mBAAmB;EACnB,YAAY;EACZ,eAAe;EACf,8CAA8C;AAChD;;AAEA;EACE,aAAa;EACb,mBAAmB;EACnB,QAAQ;EACR,YAAY;AACd;;AAEA;EACE,yBAAyB;AAC3B;;AAEA;EACE,aAAa;EACb,kBAAkB;EAClB,eAAe;EACf,YAAY;EACZ,gBAAgB;EAChB,cAAc;AAChB;;AAEA;EACE,gBAAgB;EAChB,eAAe;EACf,UAAU;AACZ","sourcesContent":["@import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');\r\n\r\n@media screen and (max-width: 550px) {\r\n  .formulario {\r\n    width: 18rem;\r\n  }\r\n}\r\n\r\n* {\r\n  font-family: 'Inter', sans-serif;\r\n  box-sizing: border-box;\r\n  margin: 0;\r\n  padding: 0;\r\n  text-decoration: none;\r\n}\r\n\r\nbody {\r\n  display: flex;\r\n  flex-direction: column;\r\n  justify-content: center;\r\n  align-items: center;\r\n  width: 100vw;\r\n  min-height: 100vh;\r\n  background: linear-gradient(209.62deg, #009034 -3.17%, #E4F1E9 157.86%);\r\n}\r\n\r\n.formulario {\r\n  display: flex;\r\n  flex-direction: column;\r\n  justify-content: center;\r\n  align-items: center;\r\n  padding: 20px 20px 35px 20px;\r\n  border-radius: 15px;\r\n  width: 365px;\r\n  background: rgba(249, 251, 242, 1);\r\n  gap: 10px;\r\n}\r\n\r\n.logoFora {\r\n  display: none;\r\n  width: 90px;\r\n  filter: brightness(0) invert(1);\r\n  margin-bottom: -20px;\r\n}\r\n\r\n.logo {\r\n  width: 90px;\r\n}\r\n\r\n.t1 {\r\n  display: block;\r\n  text-align: center;\r\n  text-transform: uppercase;\r\n  font-size: 14px;\r\n  margin-top: -20px;\r\n  color: rgb(20, 158, 20);\r\n}\r\n\r\n.form-group {\r\n  display: flex;\r\n  flex-direction: column;\r\n  gap: 2px;\r\n  width: 100%;\r\n}\r\n\r\n.enviar {\r\n  background-color: #009034;\r\n  color: white;\r\n  font-size: 15px;\r\n  padding: 5px;\r\n  width: 100%;\r\n  border: rgba(212, 212, 212, 0.438);\r\n  border-radius: 7px;\r\n  cursor: pointer;\r\n  transition: background-color 300ms ease-in-out;\r\n}\r\n\r\n.enviar:hover {\r\n  background-color: #00722a;\r\n}\r\n\r\nlabel {\r\n  margin: 0 0 2px 2px;\r\n  font-size: 12px;\r\n  text-align: left;\r\n}\r\n\r\ninput {\r\n  width: 100%;\r\n  padding: 8px;\r\n  border-radius: 7px;\r\n  border: 0.3px solid gray;\r\n  background-color: rgba(249, 251, 242, 1);\r\n}\r\n\r\nh3 {\r\n  margin-left: 2px;\r\n  font-weight: normal;\r\n  font-size: 12px;\r\n}\r\n\r\n.form-radio {\r\n  display: flex;\r\n  width: 100%;\r\n  gap: 12px;\r\n}\r\n\r\n.radio-group {\r\n  display: flex;\r\n}\r\n\r\n.radio-group .radio {\r\n  width: 18px;\r\n}\r\n\r\n.radio-group label {\r\n  margin-left: 8px;\r\n}\r\n\r\n.radio-group input {\r\n  margin-left: 4px;\r\n}\r\n\r\n#select {\r\n  padding: 5px;\r\n  border-radius: 7px;\r\n  background-color: rgba(249, 251, 242, 1);\r\n}\r\n\r\n.saudacao {\r\n  display: none;\r\n  text-align: center;\r\n  font-size: 26px;\r\n  margin: 25px 0px;\r\n  color: rgba(255, 255, 255, 1);\r\n}\r\n\r\n.mensagemRecuperar {\r\n  font-size: 23px;\r\n  text-align: left;\r\n  color: rgba(148, 112, 112, 1);\r\n}\r\n\r\n.contentValorRecuperado {\r\n  width: 100%;\r\n  border-radius: 12px;\r\n  border: 1px solid rgba(0, 144, 52, 1);\r\n  padding: 5px 15px;\r\n  height: 80px;\r\n}\r\n\r\n.contentValorRecuperado legend {\r\n  padding: 0 5px;\r\n  color: rgba(147, 112, 112, 1);\r\n}\r\n\r\n.valorRecuperado {\r\n  font-size: 28px;\r\n  font-weight: 700;\r\n  color: rgba(182, 178, 86, 1);\r\n}\r\n\r\n.contentButtons {\r\n  display: flex;\r\n  justify-content: center;\r\n  gap: 10px;\r\n  width: 80%;\r\n}\r\n\r\n.contentButtons button {\r\n  margin: 40px 0 20px 0;\r\n  color: white;\r\n  padding: 15px 25px;\r\n  font-size: 25px;\r\n  font-weight: 600;\r\n  font-family: \"Segoe UI\", Tahoma, Geneva, Verdana, sans-serif;\r\n  background: radial-gradient(1249.57% 3887.38% at 107.24% -26.49%, #009034 0%, #F9FBF2 100%);\r\n  border-radius: 12px;\r\n  border: none;\r\n  cursor: pointer;\r\n  transition: background-color 300ms ease-in-out;\r\n}\r\n\r\n.contentButtons button a {\r\n  display: flex;\r\n  align-items: center;\r\n  gap: 5px;\r\n  color: white;\r\n}\r\n\r\n.contentButtons button:hover {\r\n  background-color: #00722a;\r\n}\r\n\r\n.seguranca {\r\n  display: none;\r\n  text-align: center;\r\n  font-size: 13px;\r\n  margin: 15px;\r\n  margin-top: 50px;\r\n  color: #614B4B;\r\n}\r\n\r\n.cnpjError {\r\n  margin-left: 2px;\r\n  font-size: 11px;\r\n  color: red;\r\n}"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
