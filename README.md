@@ -8,7 +8,7 @@
 
 # ☕ Descrição do Projeto
 
-Projeto feito para uma empresa de contabilidade, o projeto recebe dados da empresa do cliente e calcula quanto de imposto pode-se recuperar, na sequencia envia o lead capturado para o emaul do cliente através de uma API do o Formsubmit.
+Projeto feito para uma empresa de contabilidade, a aplicação recebe dados da empresa do cliente e calcula quanto de imposto pode-se recuperar, na sequencia envia o lead capturado para o emaul do cliente através de uma API do o Formsubmit.
 O projeto utiliza fetch para incorporar um novo código e tambem realizar um POST para o servidor do formsubmit.
 
 ## 🤝 Autor
