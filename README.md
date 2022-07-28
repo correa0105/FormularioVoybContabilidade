@@ -1,10 +1,10 @@
 # Formulário Contabilidade Voyb
 
-![GitHub repo size](https://img.shields.io/github/repo-size/iuricode/README-template?style=for-the-badge)
-![GitHub language count](https://img.shields.io/github/languages/count/iuricode/README-template?style=for-the-badge)
-![GitHub forks](https://img.shields.io/github/forks/iuricode/README-template?style=for-the-badge)
-![Bitbucket open issues](https://img.shields.io/bitbucket/issues/iuricode/README-template?style=for-the-badge)
-![Bitbucket open pull requests](https://img.shields.io/bitbucket/pr-raw/iuricode/README-template?style=for-the-badge)
+![GitHub repo size](https://img.shields.io/github/repo-size/correa0105/FormularioVoybContabilidade?style=for-the-badge)
+![GitHub language count](https://img.shields.io/github/languages/count/correa0105/FormularioVoybContabilidade?style=for-the-badge)
+![GitHub forks](https://img.shields.io/github/forks/correa0105/FormularioVoybContabilidade?style=for-the-badge)
+![Bitbucket open issues](https://img.shields.io/bitbucket/issues/correa0105/FormularioVoybContabilidade?style=for-the-badge)
+![Bitbucket open pull requests](https://img.shields.io/bitbucket/pr-raw/correa0105/FormularioVoybContabilidade?style=for-the-badge)
 
 Este é uma Landing Page simples, feita apenas com CSS, ela tem como objetivo maior o aprendizado.
 
